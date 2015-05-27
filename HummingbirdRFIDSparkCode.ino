@@ -125,15 +125,18 @@ void TransmitData() {
     
     
     for( int i = 0; i < LiveTags; i++ ) {
-        for (int j = 0; j < TAG_SIZE + 1; j++){
-            tempTag[i] = TagData[i][j];
-            Serial.print(tempTag[i]);
+        for (int j = 0; j < TAG_SIZE; j++){
+            tempTag[j] = TagData[i][j];
+            //Serial.print(tempTag);
+            //Serial.print("\n");
         }
-      tcp.print("GET /~data/spark.php?bUID=");
-      Serial.print(tempTag);
-        tcp.print(tempTag);
-        tcp.print("&sUID=");
+        // String tempTagString = String(tempTag);
+      tcp.print("GET /~data/spark.php?sUID=");
         tcp.print( Spark.deviceID() );
+        tcp.print("&bUID=");
+        for (int i = 0; i < TAG_SIZE; i++){
+            printEachChar(tempTag[i]);
+        }
         tcp.println(" HTTP/1.0");
       tcp.println("Host: rfid.hummingbirdhealth.org");
       tcp.println("Content-Length: 0");
@@ -152,6 +155,7 @@ void TransmitData() {
         strcpy(TagData[ i ], "");
       }
     }
+    strcpy(tempTag, "");
     strcpy(RXDataStr, "");
     NeedToUpload = FALSE;
     LiveTags = 0;
@@ -162,4 +166,44 @@ void TransmitData() {
     Serial.println("Connection failed.");
   }
   tcp.stop();
+}
+
+void printEachChar(char i){
+    if (i == '0') tcp.print("0");
+    else if (i == '1') tcp.print("1");
+    else if (i == '2') tcp.print("2");
+    else if (i == '3') tcp.print("3");
+    else if (i == '4') tcp.print("4");
+    else if (i == '5') tcp.print("5");
+    else if (i == '6') tcp.print("6");
+    else if (i == '7') tcp.print("7");
+    else if (i == '8') tcp.print("8");
+    else if (i == '9') tcp.print("9");
+    
+    else if (i == 'A') tcp.print("A");
+    else if (i == 'B') tcp.print("B");
+    else if (i == 'C') tcp.print("C");
+    else if (i == 'D') tcp.print("D");
+    else if (i == 'E') tcp.print("E");
+    else if (i == 'F') tcp.print("F");
+    else if (i == 'G') tcp.print("G");
+    else if (i == 'H') tcp.print("H");
+    else if (i == 'I') tcp.print("I");
+    else if (i == 'J') tcp.print("J");
+    else if (i == 'K') tcp.print("K");
+    else if (i == 'L') tcp.print("L");
+    else if (i == 'M') tcp.print("M");
+    else if (i == 'N') tcp.print("N");
+    else if (i == 'O') tcp.print("O");
+    else if (i == 'P') tcp.print("P");
+    else if (i == 'Q') tcp.print("Q");
+    else if (i == 'R') tcp.print("R");
+    else if (i == 'S') tcp.print("S");
+    else if (i == 'T') tcp.print("T");
+    else if (i == 'U') tcp.print("U");
+    else if (i == 'V') tcp.print("V");
+    else if (i == 'W') tcp.print("W");
+    else if (i == 'X') tcp.print("X");
+    else if (i == 'Y') tcp.print("Y");
+    else if (i == 'Z') tcp.print("Z");
 }
